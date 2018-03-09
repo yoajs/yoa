@@ -1,4 +1,5 @@
-import { defineProperty, warn } from '../util/index';
+import { defineProperty, warn } from '../util/util';
+import { initMixin } from './init';
 
 function Yoa(options) {
   if (__ENV__ !== 'production' && !(this instanceof Yoa)) {
@@ -13,6 +14,9 @@ function Yoa(options) {
 
   defineProperty(this, '$name', options.name, 'root');
 
+  // Hooks
+  defineProperty(this, "$hooks", options.hooks, {});
+
   const data = options.data;
   if(data === undefined) {
     this.$data = {};
@@ -26,5 +30,7 @@ function Yoa(options) {
 Yoa.config = {
   silent: __ENV__ === 'production'
 };
+
+initMixin(Yoa);
 
 export default Yoa;

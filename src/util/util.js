@@ -21,3 +21,10 @@ export function error(...args) {
     console.error(...args);
   }
 }
+
+export function callHook(instance, name) {
+  const hook = instance.$hooks[name];
+  if(hook !== undefined) {
+    hook.call(instance);
+  }
+}
