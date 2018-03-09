@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       '../../node_modules/chai/chai.js',
       '../../dist/yoa.js',
-      './core/*.js',
+      './core/**/*.js',
     ],
 
 
@@ -29,13 +29,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '../../dist/yoa.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'spec'],
+    // reporters: ['progress', 'spec'],
+    reporters: ['mocha', 'coverage'],
 
 
     // web server port
@@ -67,6 +69,11 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
   });
 };

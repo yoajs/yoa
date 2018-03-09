@@ -1,1 +1,3 @@
-module.exports = {a: 1}
+import Yoa from './instance/index';
+
+export default Yoa;

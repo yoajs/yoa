@@ -20,8 +20,8 @@ module.exports = {
   ],
   output: {
     file: path.resolve(__dirname, '../dist/yoa.js'),
-    format: 'cjs',
+    format: 'umd',
     banner,
-    name: 'yoa'
+    name: 'Yoa'
   }
 }
