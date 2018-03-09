@@ -1,4 +1,4 @@
-import { defineProperty, warn } from '../util/util';
+import { defineProperty, warn, noop } from '../util/util';
 import { initMixin } from './init';
 
 function Yoa(options) {
@@ -13,6 +13,9 @@ function Yoa(options) {
   this.$options = options;
 
   defineProperty(this, '$name', options.name, 'root');
+
+  // Render function
+  defineProperty(this, "$render", options.render, noop);
 
   // Hooks
   defineProperty(this, "$hooks", options.hooks, {});

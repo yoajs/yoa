@@ -28,3 +28,8 @@ export function callHook(instance, name) {
     hook.call(instance);
   }
 }
+
+// no operation function
+export function noop() {
+
+};
