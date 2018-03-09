@@ -24,6 +24,11 @@ module.exports = {
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "no-console": 0,
+  },
+  globals: {
+    "__ENV__": true,
+    Yoa: true,
   }
 };

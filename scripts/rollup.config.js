@@ -15,7 +15,7 @@ module.exports = {
   plugins: [
     buble(),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      '__ENV__': JSON.stringify(process.env.NODE_ENV || 'development')
     })
   ],
   output: {

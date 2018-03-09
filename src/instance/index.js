@@ -1,7 +1,7 @@
 import { defineProperty, warn } from '../util/index';
 
 function Yoa(options) {
-  if (process.env.NODE_ENV !== 'production' && !(this instanceof Yoa)) {
+  if (__ENV__ !== 'production' && !(this instanceof Yoa)) {
     warn('Yoa is a constructor and should be called with the `new` keyword');
   }
 
@@ -22,5 +22,9 @@ function Yoa(options) {
     this.$data = data;
   }
 }
+
+Yoa.config = {
+  silent: __ENV__ === 'production'
+};
 
 export default Yoa;
