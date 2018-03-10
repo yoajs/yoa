@@ -25,7 +25,7 @@ export function initMixin(Yoa) {
       this.$render = Yoa.compile(this.$template);
     }
 
-    // build
+    // TODO:build
 
     callHook(this, 'mounted');
   }
