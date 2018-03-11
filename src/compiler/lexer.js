@@ -10,12 +10,12 @@ export default function lex(template) {
       // tag
       current++;
       if(template.substring(current, current+3) === '!--') {
-        // Handle comment
+        // Handle comment, ignore
         const endOfCommentIndex = template.indexOf('-->', current); // from postion current to end to find -->
         if(endOfCommentIndex === -1) {
           current = length;// to end
         }else {
-          current += 3;
+          current = 3 + endOfCommentIndex;
         }
       } else {
         // Handle tag
@@ -65,7 +65,7 @@ export default function lex(template) {
                 char = template[++current];
               }
 
-              while((current < length) && ((char !== '>') && (char !== '/' || template[current + 1] !== '>'))) {
+              while(current < length && char !== '>' && (char !== '/' || template[current + 1] !== '>')) {
                 if(char === quoteType) {
                   char = template[++current];
                   break;
@@ -104,7 +104,7 @@ export default function lex(template) {
       const textTail = template.substring(current);
       const endOfTextIndex = textTail.search(/<\/?(?:[A-Za-z]+\w*)|<!--/);
       let text;
-      if(endOfTextIndex) {
+      if(endOfTextIndex === -1) {
         text = textTail;
         current = length;
       }else {
