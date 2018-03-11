@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Yoa测试</title>
+    <script src="../dist/yoa.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{msg}}
+    </div>
+  </body>
+  <script>
+    var app = new Yoa({
+      el: '#app',
+      data: {
+        msg: 'hello Yoa!'
+      }
+    });
+  </script>
+</html>

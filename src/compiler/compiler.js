@@ -1,7 +1,7 @@
 import lex from './lexer';
 
-export default function compileMixin(Yoa) {
-  Yoa.prototype.compile = function(template) {
-    return lex(template)
-  }
+export default function compile(template) {
+  const tokens = lex(template);
+  console.log('tokens', tokens);
+  return tokens;
 }

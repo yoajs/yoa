@@ -1,6 +1,5 @@
 import { defineProperty, warn, noop } from '../util/util';
 import { initMixin } from './init';
-import compileMixin from '../compiler/compiler';
 
 function Yoa(options) {
   if (__ENV__ !== 'production' && !(this instanceof Yoa)) {
@@ -29,6 +28,8 @@ function Yoa(options) {
   } else {
     this.$data = data;
   }
+
+  this.init();
 }
 
 Yoa.config = {
@@ -36,6 +37,5 @@ Yoa.config = {
 };
 
 initMixin(Yoa);
-compileMixin(Yoa);
 
 export default Yoa;

@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       '../../node_modules/chai/chai.js',
       '../../dist/yoa.js',
+      './core/global.js',
       './core/**/*.js',
     ],
 
