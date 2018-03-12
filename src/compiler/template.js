@@ -39,7 +39,7 @@ export default function compileTemplate(template, state) {
       const expressionTail = template.substring(current);
       const expressionMatch = expressionTail.match(/\s*\}\}/);
 
-      if("__ENV__" !== "production" && expressionMatch === null) {
+      if(__ENV__ !== "production" && expressionMatch === null) {
         error(`Expected closing delimiter after "${expressionTail}"`);
       } else {
         // add expression
