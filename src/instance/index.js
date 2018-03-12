@@ -29,6 +29,8 @@ function Yoa(options) {
     this.$data = data;
   }
 
+  this.$dom = {};
+
   this.init();
 }
 

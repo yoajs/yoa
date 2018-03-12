@@ -1,4 +1,5 @@
 import { log, callHook, defineProperty, noop } from '../util/util';
+import { y, patch } from '../vdom/vnode';
 
 export function initMixin(Yoa) {
   Yoa.prototype.init = function() {
@@ -25,8 +26,39 @@ export function initMixin(Yoa) {
       this.$render = Yoa.compile(this.$template);
     }
 
-    // TODO:build
+    // first build
+    this.build();
 
     callHook(this, 'mounted');
+  }
+
+  Yoa.prototype.build = function() {
+    const dom = this.render();
+
+    let old = null;
+    if(this.$dom.meta !== undefined) {
+      old = this.$dom;
+    }else {
+      old = this.$el;
+      this.$dom = dom;
+    }
+
+    patch(old, dom, this.$el.parentNode);
+  }
+
+  Yoa.prototype.render = function() {
+    return this.$render(y);
+  }
+
+  Yoa.prototype.get = function(key) {
+    if(__ENV__ !== "production" && !(key in this.$data)) {
+      error(`The item "${key}" was not defined but was referenced`);
+    }
+    return this.$data[key];
+  }
+
+  Yoa.prototype.set = function(key, val) {
+    this.$data[key] = val;
+    this.build();
   }
 }
