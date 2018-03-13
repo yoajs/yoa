@@ -1,5 +1,7 @@
 var expect = chai.expect;
 
+Yoa.config.silent = true;
+
 // wrapper
 var yoaContainer = document.createElement("div");
 yoaContainer.id = "yoa-container";
