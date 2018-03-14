@@ -4,7 +4,7 @@
   "description": "A simple mvvm framework",
   "main": "dist/yoa.min.js",
   "scripts": {
-    "build": "rollup -c scripts/rollup.config.js",
+    "build": "node scripts/build.js",
     "dev": "rollup -w -c scripts/rollup.config.js",
     "test": "npm run build && karma start test/unit/karma.conf.js",
     "lint": "eslint --fix src"
@@ -37,6 +37,7 @@
     "phantomjs-prebuilt": "^2.1.16",
     "rollup": "^0.56.5",
     "rollup-plugin-buble": "^0.19.2",
-    "rollup-plugin-replace": "^2.0.0"
+    "rollup-plugin-replace": "^2.0.0",
+    "uglify-js": "^3.3.14"
   }
 }
