@@ -6,7 +6,9 @@
     <script src="../dist/yoa.js"></script>
   </head>
   <body>
-    <div id="app">{{msg}}</div>
+    <div id="app">
+      信息:{{msg}}
+    </div>
   </body>
   <script>
     var app = new Yoa({
@@ -16,8 +18,8 @@
       }
     });
 
-    setTimeout(function() {
-      app.set('msg', 1);
-    }, 100);
+    // setTimeout(function() {
+    //   app.set('msg', 1);
+    // }, 100);
   </script>
 </html>
