@@ -211,7 +211,8 @@ const generateNode = function(node, parent) {
 
   if (type === '#text') {
     // text node
-    output = `y('#text', null, null, ${node.value})`;
+    let compiledText = compileTemplate(node.value);
+    output = `y("#text", null, null, ${compiledText})`;
   }else {
     // normal node
     // attrs
@@ -227,7 +228,7 @@ const generateNode = function(node, parent) {
       return generateNode(item, node);
     });
 
-    output = `y('${type}', {${attrs.join(',')}}, null, [${childrens.join(',')}])`;
+    output = `y("${type}", {${attrs.join(',')}}, null, [${childrens.join(',')}])`;
   }
 
   return output;
