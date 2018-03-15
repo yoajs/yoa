@@ -4,6 +4,7 @@ const concatenationSymbol = ' + '
 
 export default function compileTemplate(template) {
   let output = '"';
+  let dependencies = [];
   for (let i = 0; i < template.length; i++) {
     const char = template[i];
     const nextChar = template[i+1];
@@ -21,7 +22,9 @@ export default function compileTemplate(template) {
         output += escapeString(textTail);
       }else {
         i += 2;
-        output += `" + (${textTail.substr(0, endIndex).trim()}) + "`
+        const variableName = textTail.substr(0, endIndex).trim();
+        dependencies.push(variableName);
+        output += `" + (${variableName}) + "`
       }
     }else {
       output += escapeString(char);
@@ -30,5 +33,5 @@ export default function compileTemplate(template) {
 
   output += '"';
 
-  return output;
+  return {output, dependencies};
 }

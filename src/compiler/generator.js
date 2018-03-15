@@ -1,50 +1,23 @@
 import compileTemplate from './template';
-import { error, noop } from '../util/util'
+import { error, noop, arrayDistinct } from '../util/util'
 
 const globals = ['true', 'false', 'undefined', 'null', 'NaN', 'typeof', 'in'];
 const SVG_ELEMENTS = ["svg","animate","circle","clippath","cursor","defs","desc","ellipse","filter","font-face","foreignObject","g","glyph","image","line","marker","mask","missing-glyph","path","pattern","polygon","polyline","rect","switch","symbol","text","textpath","tspan","use","view"];
 const specialDirectives = {};// TODO
 
 export default function generate(ast) {
-  console.log('ast', JSON.parse(JSON.stringify(ast)));
-  const treeOutput = generateNode(ast, undefined);
-
-  console.log(treeOutput);
-  return;
-
-  const dependencies = state.dependencies;
-  const props = dependencies.props;
-  const methods = dependencies.methods;
+  let { output, dependencies } = generateNode(ast, undefined);
   let dependenciesOutput = '';
-
-  let staticNodes = state.staticNodes;
-  let staticNodesOutput = '';
-
-  let i = 0;
-  let separator = '';
-
-  // Generate data prop dependencies
-  for(; i < props.length; i++) {
-    const propName = props[i];
-    dependenciesOutput += `var ${propName} = instance.get("${propName}");`;
-  }
-
-  // Generate method dependencies
-  for(i = 0; i < methods.length; i++) {
-    const methodName = methods[i];
-    dependenciesOutput += `var ${methodName} = instance.methods["${methodName}"];`;
-  }
-
-  // Generate static nodes
-  for(i = 0; i < staticNodes.length; i++) {
-    staticNodesOutput += separator + staticNodes[i];
-    separator = ", ";
+  dependencies = arrayDistinct(dependencies);
+  for (var i = 0; i < dependencies.length; i++) {
+    let name = dependencies[i];
+    dependenciesOutput += `var ${name} = instance.get("${name}");`;
   }
 
   // Generate render function
-  const code = `var instance = this;${dependenciesOutput}return ${treeOutput};`;
+  const code = `var instance = this;${dependenciesOutput}return ${output};`;
   try {
-    return new Function('m', code);
+    return new Function('y', code);
   } catch(e) {
     error("Could not create render function");
     return noop;
@@ -207,12 +180,14 @@ const generateNodeState = function(node, parentNode, state) {
 
 const generateNode = function(node, parent) {
   const type = node.type;
-  let output = '';
+  let nodeOutput = '';
+  let nodeDependencies = [];
 
   if (type === '#text') {
     // text node
-    let compiledText = compileTemplate(node.value);
-    output = `y("#text", null, null, ${compiledText})`;
+    const {output, dependencies} = compileTemplate(node.value);
+    nodeDependencies.push(dependencies);
+    nodeOutput = `y("#text", null, null, ${output})`;
   }else {
     // normal node
     // attrs
@@ -225,11 +200,16 @@ const generateNode = function(node, parent) {
 
     // childrens
     const childrens = node.childrens.map((item, index) => {
-      return generateNode(item, node);
+      const {output, dependencies} = generateNode(item, node);
+      nodeDependencies.push(dependencies);
+      return output;
     });
 
-    output = `y("${type}", {${attrs.join(',')}}, null, [${childrens.join(',')}])`;
+    nodeOutput = `y("${type}", {${attrs.join(',')}}, null, [${childrens.join(',')}])`;
   }
 
-  return output;
+  return {
+    output: nodeOutput,
+    dependencies: nodeDependencies
+  };
 }
