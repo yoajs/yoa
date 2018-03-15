@@ -17,7 +17,8 @@ export default function compileTemplate(template) {
         if(__ENV__ !== "production") {
           error(("Expected closing delimiter \"}}\" after \"" + textTail + "\""));
         }
-        output += endIndex;
+        i = template.length;
+        output += escapeString(textTail);
       }else {
         i += 2;
         output += `" + (${textTail.substr(0, endIndex).trim()}) + "`
