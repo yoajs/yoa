@@ -11,7 +11,10 @@ export default function generate(ast) {
   dependencies = arrayDistinct(dependencies);
   for (var i = 0; i < dependencies.length; i++) {
     let name = dependencies[i];
-    dependenciesOutput += `var ${name} = instance.get("${name}");`;
+    console.log(name);
+    if(name) {
+      dependenciesOutput += `var ${name} = instance.get("${name}");`;
+    }
   }
 
   // Generate render function
@@ -186,7 +189,7 @@ const generateNode = function(node, parent) {
   if (type === '#text') {
     // text node
     const {output, dependencies} = compileTemplate(node.value);
-    nodeDependencies.push(dependencies);
+    nodeDependencies.push(...dependencies);
     nodeOutput = `y("#text", null, ${output}, null)`;
   }else {
     // normal node
@@ -201,7 +204,7 @@ const generateNode = function(node, parent) {
     // childrens
     const childrens = node.childrens.map((item, index) => {
       const {output, dependencies} = generateNode(item, node);
-      nodeDependencies.push(dependencies);
+      nodeDependencies.push(...dependencies);
       return output;
     });
 

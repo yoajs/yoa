@@ -7,19 +7,20 @@
   </head>
   <body>
     <div id="app">
-      信息:{{msg}}
+      <p>
+        你好，{{author}}
+      </p>
+      <p>
+        欢迎使用，Yoa!
+      </p>
     </div>
     <script>
       var app = new Yoa({
         el: '#app',
         data: {
-          msg: 'hello Yoa!'
+          author: 'moonrailgun'
         }
       });
-
-      // setTimeout(function() {
-      //   app.set('msg', 1);
-      // }, 100);
     </script>
   </body>
 </html>
