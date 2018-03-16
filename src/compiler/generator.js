@@ -187,7 +187,7 @@ const generateNode = function(node, parent) {
     // text node
     const {output, dependencies} = compileTemplate(node.value);
     nodeDependencies.push(dependencies);
-    nodeOutput = `y("#text", null, null, ${output})`;
+    nodeOutput = `y("#text", null, ${output}, null)`;
   }else {
     // normal node
     // attrs

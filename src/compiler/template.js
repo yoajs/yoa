@@ -21,7 +21,7 @@ export default function compileTemplate(template) {
         i = template.length;
         output += escapeString(textTail);
       }else {
-        i += 2;
+        i += 2 + endIndex;
         const variableName = textTail.substr(0, endIndex).trim();
         dependencies.push(variableName);
         output += `" + (${variableName}) + "`
