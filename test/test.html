@@ -8,7 +8,7 @@
   <body>
     <div id="app">
       <p>
-        你好，{{author}}
+        你好，{{appendText(author, '大大')}}
       </p>
       <p>
         欢迎使用，Yoa!
@@ -18,7 +18,14 @@
       var app = new Yoa({
         el: '#app',
         data: {
-          author: 'moonrailgun'
+          author: 'moonrailgun',
+          suffix: 'dalao'
+        },
+        methods: {
+          appendText(text, defaultSuffix) {
+            var suffix = this.get('suffix');
+            return text + ' ' + (suffix || defaultSuffix);
+          }
         }
       });
     </script>

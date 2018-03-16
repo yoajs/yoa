@@ -23,7 +23,13 @@ export default function compileTemplate(template) {
       }else {
         i += 2 + endIndex - 1;
         const variableName = textTail.substr(0, endIndex).trim();
-        dependencies.push(variableName);
+        if(variableName.indexOf('(') >= 0) {
+          // has expression
+          let vars = variableName.split(/[^A-Za-z0-9]/);
+          dependencies.push(...vars);
+        }else {
+          dependencies.push(variableName);
+        }
         output += `" + (${variableName}) + "`
       }
     }else {

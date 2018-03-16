@@ -11,7 +11,6 @@ export default function generate(ast) {
   dependencies = arrayDistinct(dependencies);
   for (var i = 0; i < dependencies.length; i++) {
     let name = dependencies[i];
-    console.log(name);
     if(name) {
       dependenciesOutput += `var ${name} = instance.get("${name}");`;
     }

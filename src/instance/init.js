@@ -1,4 +1,4 @@
-import { log, callHook, defineProperty, noop } from '../util/util';
+import { log, callHook, defineProperty, noop, error } from '../util/util';
 import { y, patch } from '../vdom/vnode';
 
 export function initMixin(Yoa) {
@@ -60,5 +60,13 @@ export function initMixin(Yoa) {
   Yoa.prototype.set = function(key, val) {
     this.$data[key] = val;
     this.build();
+  }
+
+  Yoa.prototype.registerMethod = function(methods) {
+    let data = this.$data;
+
+    for (let methodName in methods) {
+      data[methodName] = methods[methodName].bind(this);
+    }
   }
 }

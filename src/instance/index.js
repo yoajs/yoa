@@ -29,6 +29,11 @@ function Yoa(options) {
     this.$data = data;
   }
 
+  let methods = options.methods;
+  if(methods !== undefined) {
+    this.registerMethod(methods);
+  }
+
   this.$dom = {};
 
   this.init();
