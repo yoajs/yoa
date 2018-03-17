@@ -1,4 +1,5 @@
 import { escapeString, error } from '../util/util';
+import { expressionRE } from '../util/regex';
 
 const concatenationSymbol = ' + '
 
@@ -25,8 +26,7 @@ export function compileTemplate(template) {
         const variableName = textTail.substr(0, endIndex).trim();
         if(variableName.indexOf('(') >= 0) {
           // has expression
-          let vars = variableName.split(/[^A-Za-z0-9]/);
-          dependencies.push(...vars);
+          dependencies.push(...getTemplateDependencies(variableName));
         }else {
           dependencies.push(variableName);
         }
@@ -44,7 +44,19 @@ export function compileTemplate(template) {
 
 export function compileTemplateExpression(template) {
   let output = template;
-  let dependencies = template.split(/[^A-Za-z0-9]/);
+  let dependencies = getTemplateDependencies(template);
 
   return { output, dependencies }
+}
+
+function getTemplateDependencies(template) {
+  let dependencies = [];
+  template.replace(expressionRE, function(match, reference) {
+    console.log('match, reference', match, reference);
+    if(reference !== undefined && dependencies.indexOf(reference) === -1) {
+      dependencies.push(reference);
+    }
+  });
+
+  return dependencies;
 }

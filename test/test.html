@@ -17,7 +17,7 @@
         欢迎使用，Yoa!
       </p>
       <p>
-        你好，{{appendText(author, '大大')}}
+        你好，{{appendText(author.name, 'master')}}
       </p>
       <h2 y-if="isShow">这条信息笨蛋是看不到的</h2>
     </div>
@@ -28,7 +28,10 @@
       var app = new Yoa({
         el: '#app',
         data: {
-          author: 'moonrailgun',
+          author: {
+            name: 'moonrailgun',
+            age: 22
+          },
           suffix: 'dalao',
           isShow: true,
         },
