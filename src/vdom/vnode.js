@@ -4,11 +4,9 @@ import {
   removeChild,
   replaceChild,
   extractAttrs,
-} from './dom';
-import {
   diff,
   diffProps,
-} from './diff';
+} from './dom';
 
 export function y(tag, attrs, meta, childrens) {
   let component = null;
