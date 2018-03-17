@@ -1,3 +1,13 @@
+// patch type
+const PATCH = {
+  SKIP: 0,
+  APPEND: 1,
+  REMOVE: 2,
+  REPLACE: 3,
+  TEXT: 4,
+  CHILDREN: 5
+}
+
 export function diff(oldVNode, newVNode, parent) {
   if(oldVNode === null) {
     appendChild(createNodeFromVNode(newVNode), newVNode, parent);
@@ -26,8 +36,8 @@ export function diff(oldVNode, newVNode, parent) {
   } else {
     let node = oldVNode.meta.el;
 
-    diffProps(node, oldVNode.props.attrs, newVNode);
-    oldVNode.props.attrs = newVNode.props.attrs;
+    diffProps(node, oldVNode.props, newVNode);
+    oldVNode.props = newVNode.props;
 
     // Check if innerHTML was changed, don't diff children
     let domProps = newVNode.props.dom;

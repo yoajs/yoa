@@ -10,16 +10,6 @@ import {
   diffProps,
 } from './diff';
 
-// patch type
-const PATCH = {
-  SKIP: 0,
-  APPEND: 1,
-  REMOVE: 2,
-  REPLACE: 3,
-  TEXT: 4,
-  CHILDREN: 5
-}
-
 export function y(tag, attrs, meta, childrens) {
   let component = null;
   if(tag === '#text') {
