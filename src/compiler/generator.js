@@ -12,7 +12,7 @@ export default function generate(ast) {
   dependencies = arrayDistinct(dependencies);
   for (var i = 0; i < dependencies.length; i++) {
     let name = dependencies[i];
-    if(name) {
+    if(name && globals.indexOf(name) === -1 && isNaN(name[0])) {
       dependenciesOutput += `var ${name} = instance.get("${name}");`;
     }
   }
