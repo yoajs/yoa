@@ -52,7 +52,6 @@ export function compileTemplateExpression(template) {
 function getTemplateDependencies(template) {
   let dependencies = [];
   template.replace(expressionRE, function(match, reference) {
-    console.log('match, reference', match, reference);
     if(reference !== undefined && dependencies.indexOf(reference) === -1) {
       dependencies.push(reference);
     }
