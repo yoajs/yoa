@@ -2,7 +2,7 @@ import { escapeString, error } from '../util/util';
 
 const concatenationSymbol = ' + '
 
-export default function compileTemplate(template) {
+export function compileTemplate(template) {
   let output = '"';
   let dependencies = [];
   for (let i = 0; i < template.length; i++) {
@@ -40,4 +40,11 @@ export default function compileTemplate(template) {
   output += '"';
 
   return {output, dependencies};
+}
+
+export function compileTemplateExpression(template) {
+  let output = template;
+  let dependencies = template.split(/[^A-Za-z0-9]/);
+
+  return { output, dependencies }
 }

@@ -4,22 +4,33 @@
     <meta charset="utf-8">
     <title>Yoa测试</title>
     <script src="../dist/yoa.js"></script>
+    <style>
+      .welcome {
+        font-size: 14px;
+        color: #ccc;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
+      <p class="welcome">
+        欢迎使用，Yoa!
+      </p>
       <p>
         你好，{{appendText(author, '大大')}}
       </p>
-      <p>
-        欢迎使用，Yoa!
-      </p>
+      <h1 y-if="isShow">这条信息笨蛋是看不到的</h1>
+    </div>
+    <div>
+
     </div>
     <script>
       var app = new Yoa({
         el: '#app',
         data: {
           author: 'moonrailgun',
-          suffix: 'dalao'
+          suffix: 'dalao',
+          isShow: true,
         },
         methods: {
           appendText(text, defaultSuffix) {
