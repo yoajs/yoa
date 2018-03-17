@@ -1,3 +1,7 @@
+import {
+  diffProps,
+} from './diff';
+
 export function createNodeFromVNode(vnode) {
   var el = null;
   if(vnode.type === '#text') {
@@ -16,6 +20,9 @@ export function createNodeFromVNode(vnode) {
       }
     }
 
+    // set props
+    diffProps(el, {}, vnode);
+
     vnode.meta.el = el;
     return el;
   }
@@ -31,4 +38,12 @@ export function removeChild(node, parent) {
 
 export function replaceChild(oldNode, newNode, vnode, parent) {
   parent.replaceChild(newNode, oldNode);
+}
+
+export function extractAttrs(node) {
+  var attrs = {};
+  for(var rawAttrs = node.attributes, i = rawAttrs.length; i--;) {
+    attrs[rawAttrs[i].name] = rawAttrs[i].value;
+  }
+  return attrs;
 }
