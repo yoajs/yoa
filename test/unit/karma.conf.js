@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      { pattern: '../lib/polyfill.min.js', watched: false},
       '../../node_modules/chai/chai.js',
       '../../dist/yoa.js',
       './core/global.js',
