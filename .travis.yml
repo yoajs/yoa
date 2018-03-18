@@ -10,5 +10,6 @@ install:
 script:
   - npm run test
 env:
-  - COVERAGE_TYPE: text
-  - NODE_ENV: production
+  global:
+    - COVERAGE_TYPE: text
+    - NODE_ENV: production
