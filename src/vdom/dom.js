@@ -10,8 +10,8 @@ export function createNodeFromVNode(vnode) {
       el.textContent = vnode.childrens[0].val;
       vnode.childrens[0].meta.el = el.firstChild;// set el
     } else {
-      for (let i = 0; i < vnode.children.length; i++) {
-        var vchild = vnode.children[i];
+      for (let i = 0; i < vnode.childrens.length; i++) {
+        var vchild = vnode.childrens[i];
         appendChild(createNodeFromVNode(vchild), vchild, el);
       }
     }
