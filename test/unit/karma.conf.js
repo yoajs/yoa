@@ -67,14 +67,14 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: process.env.NODE_ENV === 'production' ? true : false,
 
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
     coverageReporter: {
-      type : 'html',
+      type : process.env.COVERAGE_TYPE || 'html',
       dir : 'coverage/'
     },
   });
