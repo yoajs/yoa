@@ -17,7 +17,7 @@ export function y(tag, attrs, meta, childrens) {
     return createElement('#text', meta, {attrs:{}}, attrs, []);
   }
 
-  return createElement(tag, '', attrs, meta, childrens)
+  return createElement(tag, '', attrs, meta, childrens);
 }
 
 const createElement = function(type, val, props, meta, childrens) {
@@ -28,13 +28,13 @@ const createElement = function(type, val, props, meta, childrens) {
     childrens: childrens,
     meta: meta || defaultMetadata()
   };
-}
+};
 
 const defaultMetadata = function() {
   return {
     shouldRender: false
-  }
-}
+  };
+};
 
 export function patch(old, vnode, parent) {
   if(old.meta !== undefined) {

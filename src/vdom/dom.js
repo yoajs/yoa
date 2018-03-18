@@ -4,7 +4,7 @@ export function createNodeFromVNode(vnode) {
     el = document.createTextNode(vnode.val);
   }else {
     el = vnode.meta.isSVG
-      ? document.createElementNS("http://www.w3.org/2000/svg", vnode.type)
+      ? document.createElementNS('http://www.w3.org/2000/svg', vnode.type)
       : document.createElement(vnode.type);
     if(vnode.childrens.length === 1 && vnode.childrens[0].type === '#text') {
       el.textContent = vnode.childrens[0].val;
@@ -52,7 +52,7 @@ const PATCH = {
   REPLACE: 3,
   TEXT: 4,
   CHILDREN: 5
-}
+};
 
 export function diff(oldVNode, newVNode, parent) {
   if(oldVNode === null) {
@@ -114,19 +114,19 @@ export function diff(oldVNode, newVNode, parent) {
         let action = diff(oldChild, newChild, node);
 
         switch (action) {
-          case PATCH.APPEND:
-            oldChildrens[oldLength++] = newChild;
-            break;
-          case PATCH.REMOVE:
-            oldChildrens.splice(j--, 1);
-            oldLength--;
-            break;
-          case PATCH.REPLACE:
-            oldChildrens[j] = newChildrens[i]
-            break;
-          case PATCH.TEXT:
-            oldChild = newChild.val;
-            break;
+        case PATCH.APPEND:
+          oldChildrens[oldLength++] = newChild;
+          break;
+        case PATCH.REMOVE:
+          oldChildrens.splice(j--, 1);
+          oldLength--;
+          break;
+        case PATCH.REPLACE:
+          oldChildrens[j] = newChildrens[i];
+          break;
+        case PATCH.TEXT:
+          oldChild = newChild.val;
+          break;
         }
       }
     }
@@ -143,8 +143,8 @@ export function diffProps(node, nodeProps, vnode) {
     let nodePropValue = nodeProps[vnodePropName];
 
     if(vnodePropValue && (!nodePropValue || vnodePropValue !== nodePropValue)) {
-      if(vnodePropName.length === 10 && vnodePropName === "xlink:href") {
-        node.setAttributeNS('http://www.w3.org/1999/xlink', "href", vnodePropValue);
+      if(vnodePropName.length === 10 && vnodePropName === 'xlink:href') {
+        node.setAttributeNS('http://www.w3.org/1999/xlink', 'href', vnodePropValue);
       } else {
         node.setAttribute(vnodePropName, vnodePropValue === true ? '' : vnodePropValue);
       }

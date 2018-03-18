@@ -10,7 +10,7 @@ directives['y-if'] = {
     let output = `((${res.output}) ? ${code} : null)`;
     return {output, dependencies: res.dependencies};
   }
-}
+};
 
 export default function processDirectives(props, originOutput, originDependencies, astNode) {
   let output = originOutput;
@@ -26,4 +26,4 @@ export default function processDirectives(props, originOutput, originDependencie
   }
 
   return output || originOutput;
-};
+}

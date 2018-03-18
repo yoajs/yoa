@@ -29,6 +29,7 @@ module.exports = {
   },
   globals: {
     "__ENV__": true,
+    "__VERSION__": true,
     Yoa: true,
   }
 };

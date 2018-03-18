@@ -3,7 +3,7 @@ import { error, noop, arrayDistinct } from '../util/util';
 import processDirectives from '../directives/index';
 
 const globals = ['true', 'false', 'undefined', 'null', 'NaN', 'typeof', 'in'];
-const SVG_ELEMENTS = ["svg","animate","circle","clippath","cursor","defs","desc","ellipse","filter","font-face","foreignObject","g","glyph","image","line","marker","mask","missing-glyph","path","pattern","polygon","polyline","rect","switch","symbol","text","textpath","tspan","use","view"];
+const SVG_ELEMENTS = ['svg','animate','circle','clippath','cursor','defs','desc','ellipse','filter','font-face','foreignObject','g','glyph','image','line','marker','mask','missing-glyph','path','pattern','polygon','polyline','rect','switch','symbol','text','textpath','tspan','use','view'];
 const specialDirectives = {};// TODO
 
 export default function generate(ast) {
@@ -22,7 +22,7 @@ export default function generate(ast) {
   try {
     return new Function('y', code);
   } catch(e) {
-    error("Could not create render function");
+    error('Could not create render function');
     return noop;
   }
 }
@@ -31,7 +31,7 @@ const generateStaticNode = function(nodeOutput, staticNodes) {
   const staticNodesLength = staticNodes.length;
   staticNodes[staticNodesLength] = nodeOutput;
   return `staticNodes[${staticNodesLength}]`;
-}
+};
 
 const generateData = function(data) {
   let dataOutput = '{';
@@ -68,11 +68,11 @@ const generateData = function(data) {
 
   for(let key in data) {
     dataOutput += `${separator}${key}: ${data[key]}`;
-    separator = ", ";
+    separator = ', ';
   }
 
   return dataOutput + '}';
-}
+};
 
 const generateNode = function(node, parent) {
   const type = node.type;
@@ -109,4 +109,4 @@ const generateNode = function(node, parent) {
     output: nodeOutput,
     dependencies: nodeDependencies
   };
-}
+};

@@ -41,14 +41,14 @@ export function arrayDistinct(arr) {
 }
 
 const escapeMap = {
-  "&lt;": "<",
-  "&gt;": ">",
-  "&quot;": "\\\"",
-  "&amp;": "&",
-  "\\": "\\\\",
-  "\"": "\\\"",
-  "\n": "\\n"
-}
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '\\"',
+  '&amp;': '&',
+  '\\': '\\\\',
+  '"': '\\"',
+  '\n': '\\n'
+};
 export function escapeString(str) {
   return str.replace(/(?:(?:&(?:lt|gt|quot|amp);)|"|\\|\n)/g, function(match) {
     return escapeMap[match];
@@ -58,4 +58,4 @@ export function escapeString(str) {
 // no operation function
 export function noop() {
 
-};
+}

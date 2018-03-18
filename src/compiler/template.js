@@ -1,7 +1,7 @@
 import { escapeString, error } from '../util/util';
 import { expressionRE } from '../util/regex';
 
-const concatenationSymbol = ' + '
+const concatenationSymbol = ' + ';
 
 export function compileTemplate(template) {
   let output = '"';
@@ -16,8 +16,8 @@ export function compileTemplate(template) {
       const endIndex = textTail.indexOf('}}');
       if(endIndex === -1) {
         // no closed
-        if(__ENV__ !== "production") {
-          error(("Expected closing delimiter \"}}\" after \"" + textTail + "\""));
+        if(__ENV__ !== 'production') {
+          error(('Expected closing delimiter "}}" after "' + textTail + '"'));
         }
         i = template.length;
         output += escapeString(textTail);
@@ -30,7 +30,7 @@ export function compileTemplate(template) {
         }else {
           dependencies.push(variableName);
         }
-        output += `" + (${variableName}) + "`
+        output += `" + (${variableName}) + "`;
       }
     }else {
       output += escapeString(char);
@@ -46,7 +46,7 @@ export function compileTemplateExpression(template) {
   let output = template;
   let dependencies = getTemplateDependencies(template);
 
-  return { output, dependencies }
+  return { output, dependencies };
 }
 
 function getTemplateDependencies(template) {

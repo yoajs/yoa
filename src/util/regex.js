@@ -2,4 +2,4 @@ let expressionRE = /"[^"]*"|'[^']*'|\.\w*[a-zA-Z$_]\w*|\w*[a-zA-Z$_]\w*:|(\w*[a-
 
 export {
   expressionRE,
-}
+};

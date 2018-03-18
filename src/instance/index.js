@@ -15,10 +15,10 @@ function Yoa(options) {
   defineProperty(this, '$name', options.name, 'root');
 
   // Render function
-  defineProperty(this, "$render", options.render, noop);
+  defineProperty(this, '$render', options.render, noop);
 
   // Hooks
-  defineProperty(this, "$hooks", options.hooks, {});
+  defineProperty(this, '$hooks', options.hooks, {});
 
   const data = options.data;
   if(data === undefined) {
