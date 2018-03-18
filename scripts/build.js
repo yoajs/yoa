@@ -6,27 +6,35 @@ const uglify = require('uglify-js');
 
 const config = require('./rollup.config');
 
+if (!fs.existsSync('dist')) {
+  fs.mkdirSync('dist');
+}
+
 build();
 
 async function build() {
-  const bundle = await rollup.rollup(config);
-  const output = config.output;
-  const { file, banner } = output;
-  const { code, map } = await bundle.generate(output);
+  try {
+    const bundle = await rollup.rollup(config);
+    const output = config.output;
+    const { file, banner } = output;
+    const { code, map } = await bundle.generate(output);
 
-  // .js
-  await write(file, code, true);
+    // .js
+    await write(file, code, true);
 
-  // .min.js
-  let minified = (banner ? banner + '\n' : '') + uglify.minify(code, {
-    output: {
-      ascii_only: true
-    },
-    compress: {
-      pure_funcs: ['makeMap']
-    }
-  }).code;
-  await write(file.replace('.js', '.min.js'), minified, true);
+    // .min.js
+    let minified = (banner ? banner + '\n' : '') + uglify.minify(code, {
+      output: {
+        ascii_only: true
+      },
+      compress: {
+        pure_funcs: ['makeMap']
+      }
+    }).code;
+    await write(file.replace('.js', '.min.js'), minified, true);
+  } catch(e) {
+    console.error(e);
+  }
 }
 
 function write(dest, code, zip) {
