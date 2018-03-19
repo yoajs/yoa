@@ -1,6 +1,6 @@
-describe('Config', function() {
+describe('#Config', function() {
 
-  describe('Init', function() {
+  describe('#Init', function() {
     const yoa = new Yoa();
 
     it('default options', function() {

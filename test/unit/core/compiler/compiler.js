@@ -1,4 +1,4 @@
-describe('Compiler', function() {
+describe('#Compiler', function() {
   it("should compile mustaches", function() {
     var el = createTestElement("compilerMustache", '{{msg}}');
     var app = new Yoa({

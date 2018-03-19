@@ -1,4 +1,4 @@
-describe('Data', function() {
+describe('#Data', function() {
   it('data function this', function() {
     const yoa = new Yoa({
       data: function() {

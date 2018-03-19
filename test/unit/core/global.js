@@ -14,3 +14,20 @@ var createTestElement = function(id, html) {
   yoaContainer.appendChild(el);
   return el;
 }
+
+var then = function(cb) {
+  return new Promise(function(resolve, reject) {
+    Yoa.nextTick(function() {
+      try {
+        if(cb.toString().indexOf("done") !== -1) {
+          cb(resolve);
+        } else {
+          cb();
+          resolve();
+        }
+      } catch(err) {
+        reject(err);
+      }
+    });
+  });
+}
