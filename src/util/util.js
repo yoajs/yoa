@@ -30,8 +30,9 @@ export function callHook(instance, name) {
 }
 
 export function arrayDistinct(arr) {
-  let i, obj = {}, result = [], len = arr.length;
-  for(i = 0; i< arr.length; i++) {
+  let obj = {};
+  let result = [];
+  for(let i = 0; i< arr.length; i++) {
     if(!obj[arr[i]]){
       obj[arr[i]] = 1;
       result.push(arr[i]);

@@ -9,7 +9,6 @@ import {
 } from './dom';
 
 export function y(tag, attrs, meta, childrens) {
-  let component = null;
   if(tag === '#text') {
     // Tag => #text
     // Attrs => meta
