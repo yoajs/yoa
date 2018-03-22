@@ -2,6 +2,7 @@
 A simple mvvm framework
 
 [![Build Status](https://travis-ci.org/yoajs/yoa.svg?branch=master)](https://travis-ci.org/yoajs/yoa)
+[![Coverage Status](https://coveralls.io/repos/github/yoajs/yoa/badge.svg?branch=master)](https://coveralls.io/github/yoajs/yoa?branch=master)
 
 
 ## scripts

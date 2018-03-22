@@ -11,4 +11,4 @@ script:
   - NODE_ENV=production npm run test
 env:
   global:
-    - COVERAGE_TYPE: text
+    - COVERAGE_TYPE: lcov
