@@ -27,53 +27,6 @@ export default function generate(ast) {
   }
 }
 
-const generateStaticNode = function(nodeOutput, staticNodes) {
-  const staticNodesLength = staticNodes.length;
-  staticNodes[staticNodesLength] = nodeOutput;
-  return `staticNodes[${staticNodesLength}]`;
-};
-
-const generateData = function(data) {
-  let dataOutput = '{';
-  let separator = '';
-
-  // // Events
-  // let events = data.events;
-  // let eventHandlerSeparator = '';
-  // if(events !== undefined) {
-  //   dataOutput += "events: {";
-  //
-  //   for(let eventType in events) {
-  //     dataOutput += `${separator}"${eventType}": [`;
-  //
-  //     let handlers = events[eventType];
-  //     for(let i = 0; i < handlers.length; i++) {
-  //       dataOutput += eventHandlerSeparator + handlers[i];
-  //       eventHandlerSeparator = ", ";
-  //     }
-  //
-  //     separator = ", ";
-  //     eventHandlerSeparator = '';
-  //     dataOutput += ']';
-  //   }
-  //
-  //   dataOutput += '}';
-  //   delete data.events;
-  // }
-  //
-  // // Flags
-  // if(data.flags === 0) {
-  //   delete data.flags;
-  // }
-
-  for(let key in data) {
-    dataOutput += `${separator}${key}: ${data[key]}`;
-    separator = ', ';
-  }
-
-  return dataOutput + '}';
-};
-
 const generateNode = function(node, parent) {
   const type = node.type;
   let nodeOutput = '';
