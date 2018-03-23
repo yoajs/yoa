@@ -102,7 +102,7 @@ const generateNode = function(node, parent) {
     });
 
     nodeOutput = `y("${type}", {${attrs.join(',')}}, null, [${childrens.join(',')}])`;
-    nodeOutput = processDirectives(props, nodeOutput, nodeDependencies, node);
+    nodeOutput = processDirectives(props, nodeOutput, nodeDependencies, node, parent);
   }
 
   return {
