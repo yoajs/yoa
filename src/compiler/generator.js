@@ -39,6 +39,8 @@ const generateNode = function(node, parent) {
     nodeOutput = `y("#text", null, ${output}, null)`;
   }else {
     // normal node
+    generateAstAttrMap(node);
+
     // attrs
     let attrs = [];
     const props = node.props;
@@ -63,3 +65,14 @@ const generateNode = function(node, parent) {
     dependencies: nodeDependencies
   };
 };
+
+// generate node.attrs from props
+const generateAstAttrMap = function(astNode) {
+  let attrMap = {};
+  let props = astNode.props;
+  for (let i = 0; i < props.length; i++) {
+    let prop = props[i];
+    attrMap[prop.name] = prop.value;
+  }
+  astNode.attrs = attrMap;
+}
