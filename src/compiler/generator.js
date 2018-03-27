@@ -1,12 +1,13 @@
 import { compileTemplate, } from './template';
 import { error, noop, arrayDistinct } from '../util/util';
-import processDirectives from '../directives/index';
+import { processDirectives, preTransformDirectives } from '../directives/index';
 
 const globals = ['true', 'false', 'undefined', 'null', 'NaN', 'typeof', 'in'];
 const SVG_ELEMENTS = ['svg','animate','circle','clippath','cursor','defs','desc','ellipse','filter','font-face','foreignObject','g','glyph','image','line','marker','mask','missing-glyph','path','pattern','polygon','polyline','rect','switch','symbol','text','textpath','tspan','use','view'];
 const specialDirectives = {};// TODO
 
 export default function generate(ast) {
+  walkAstTree(ast, null);
   let { output, dependencies } = generateNode(ast, undefined);
   let dependenciesOutput = '';
   dependencies = arrayDistinct(dependencies);
@@ -27,6 +28,18 @@ export default function generate(ast) {
   }
 }
 
+
+const walkAstTree = function(ast) {
+  if(ast.type === '#text') {
+    return;
+  }
+  generateAstAttrMap(ast);
+
+  ast.childrens.map((item, index) => {
+    walkAstTree(item);
+  })
+}
+
 const generateNode = function(node, parent) {
   const type = node.type;
   let nodeOutput = '';
@@ -39,7 +52,14 @@ const generateNode = function(node, parent) {
     nodeOutput = `y("#text", null, ${output}, null)`;
   }else {
     // normal node
-    generateAstAttrMap(node);
+    preTransformDirectives(node, parent);
+
+    if(node.isProcess) {
+      return {
+        output: null,
+        dependencies: []
+      }
+    }
 
     // attrs
     let attrs = [];
