@@ -1,4 +1,5 @@
-import { compileTemplate, } from './template';
+import { compileTemplate } from './template';
+import { generate as generateCode } from './codegen';
 import { error, noop, arrayDistinct } from '../util/util';
 import { processDirectives, preTransformDirectives } from '../directives/index';
 
@@ -8,7 +9,9 @@ const specialDirectives = {};// TODO
 
 export default function generate(ast) {
   walkAstTree(ast, null);
-  let { output, dependencies } = generateNode(ast, undefined);
+  // let { output, dependencies } = generateNode(ast, undefined);
+  let { output, dependencies } = generateCode(ast, undefined);
+
   let dependenciesOutput = '';
   dependencies = arrayDistinct(dependencies);
   for (var i = 0; i < dependencies.length; i++) {
@@ -20,6 +23,7 @@ export default function generate(ast) {
 
   // Generate render function
   const code = `var instance = this;${dependenciesOutput}return ${output};`;
+  console.log(code);
   try {
     return new Function('y', code);
   } catch(e) {
