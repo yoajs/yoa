@@ -23,7 +23,6 @@ export default function generate(ast) {
 
   // Generate render function
   const code = `var instance = this;${dependenciesOutput}return ${output};`;
-  console.log(code);
   try {
     return new Function('y', code);
   } catch(e) {
